@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.typesafe.sbt
+package com.danieltrinh.sbt
 
 import sbt._
 import sbt.Keys._
 import scala.collection.immutable.Seq
-import scalariform.formatter.ScalaFormatter
-import scalariform.formatter.preferences.IFormattingPreferences
-import scalariform.parser.ScalaParserException
+import com.danieltrinh.scalariform.formatter.ScalaFormatter
+import com.danieltrinh.scalariform.formatter.preferences.IFormattingPreferences
+import com.danieltrinh.scalariform.parser.ScalaParserException
 
 private object Scalariform {
 

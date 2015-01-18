@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.typesafe.sbt
+package com.danieltrinh.sbt
 
 import sbt._
 import sbt.Keys._
 import scala.collection.immutable.Seq
-import scalariform.formatter.preferences.{ FormattingPreferences, IFormattingPreferences }
+import com.danieltrinh.scalariform.formatter.preferences.{ FormattingPreferences, IFormattingPreferences }
 
 object SbtScalariform extends Plugin {
 
@@ -43,7 +43,7 @@ object SbtScalariform extends Plugin {
   import ScalariformKeys._
 
   val defaultPreferences = {
-    import scalariform.formatter.preferences._
+    import com.danieltrinh.scalariform.formatter.preferences._
     FormattingPreferences()
       .setPreference(DoubleIndentClassDeclaration, true)
   }
