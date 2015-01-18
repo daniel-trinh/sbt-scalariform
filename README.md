@@ -18,16 +18,18 @@ To add sbt-scalariform to your build using sbt 0.13, just add the below setting,
 ... // Other settings
 resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 
-addSbtPlugin("com.danieltrinh" % "sbt-scalariform" % "1.3.0")
+addSbtPlugin("com.danieltrinh" % "sbt-scalariform" % "1.3.1")
 ```
 
 sbt 0.12.x and below is not supported for this fork, see `https://github.com/sbt/sbt-scalariform` for
 older versions
 
+Version `1.3.1` uses a different FQN for package names than 1.3.0 and earlier -- the imports for sbt-scalariform
+are now under `com.danieltrinh.sbt` instead of `com.typesafe.sbt`, and the imports for scalariform settings are now under `com.danieltrinh.scalariform.formatter.preferences._` instead of `scalariform.formatter.preferences._`.
 
 After adding the sbt-scalariform plugin like this, you still have to configure it, i.e. add the relevant settings to your build definition. Please read on ...
 
-Basic configuration
+Basic sbt configuration
 -------------------
 
 Add the `scalariformSettings` to your local build definition file `build.sbt` or `scalariform.sbt`:
@@ -42,14 +44,19 @@ This will add the task `scalariformFormat` in the scopes `compile` and `test` an
 
 Now you are ready to go. Either start sbt or, if it was already started, reload the current session by executing the `reload` command. If everything worked, you should have the new command `scalariformFormat` available as well automatic formatting on `compile` and `test:compile` activated.
 
-Using sbt-scalariform
----------------------
 
-If you added the settings for this plugin like described above, you can either format your sources manually or automatically:
+Full build.scala configuration
+------------------------------
+```
+import com.danieltrinh.sbt.SbtScalariform
+import com.danieltrinh.sbt.SbtScalariform.ScalariformKeys
 
-- Whenever you run the tasks `compile` or `test:compile`, your source files will be automatically formatted by Scalariform
+object ProjectBuild extends Build {
+  val scalariformSettings = SbtScalariform.defaultScalariformSettings
 
-- If you want to start formatting your source files explicitly, just run the task `scalariformFormat` or `test:scalariformFormat`
+  val project = Project("name", file("."), settings = Defaults.defaultSettings ++ SbtScalariform.defaultScalariformSettings)
+}
+```
 
 Advanced configuration
 ----------------------
@@ -59,7 +66,7 @@ sbt-scalariform comes with various configuration options. Changing the formattin
 You can provide your own formatting preferences for Scalariform via the setting key `ScalariformKeys.preferences` which expects an instance of `IFormattingPreferences`. Make sure you import all necessary members from the package `scalariform.formatter.preferences`. Let's look at an example:
 
 ```
-import scalariform.formatter.preferences._
+import com.danieltrinh.scalariform.formatter.preferences._
 
 scalariformSettings
 
@@ -68,6 +75,15 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, true)
   .setPreference(PreserveDanglingCloseParenthesis, true)
 ```
+
+Using sbt-scalariform
+---------------------
+
+If you added the settings for this plugin like described above, you can either format your sources manually or automatically:
+
+- Whenever you run the tasks `compile` or `test:compile`, your source files will be automatically formatted by Scalariform
+
+- If you want to start formatting your source files explicitly, just run the task `scalariformFormat` or `test:scalariformFormat`
 
 If you don't want sbt to automatically format your source files when the tasks `compile` or `test:compile`, just add `defaultScalariformSettings` instead of `scalariformSettings` to your build definition.
 

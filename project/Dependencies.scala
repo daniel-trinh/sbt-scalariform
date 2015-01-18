@@ -1,7 +1,7 @@
 import sbt._
 
 object Version {
-  val scalariform = "0.1.5"
+  val scalariform = "0.1.6-SNAPSHOT"
 }
 
 object Library {

@@ -5,6 +5,8 @@ import scala.Some
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
+import xerial.sbt.Sonatype._
+import xerial.sbt.Sonatype.SonatypeKeys._
 
 object SbtScalariformBuild extends Build {
 
@@ -30,10 +32,11 @@ object SbtScalariformBuild extends Build {
   val sbtScalariform: Project = Project(
     "sbt-scalariform",
     file("."),
-    settings = Defaults.defaultSettings ++ SbtScalariform.scalariformSettings ++ Seq(
+    settings = Defaults.defaultSettings ++ SbtScalariform.scalariformSettings ++ sonatypeSettings ++ Seq(
       organization := "com.danieltrinh",
+      profileName := "com.danieltrinh",
       name := "sbt-scalariform",
-      version in ThisBuild := "1.3.0",
+      version in ThisBuild := "1.3.1-SNAPSHOT",
       resolvers ++= Resolvers.resolvers,
       libraryDependencies ++= Dependencies.sbtScalariform,
       scalacOptions ++= List(
@@ -49,7 +52,8 @@ object SbtScalariformBuild extends Build {
       publishTo <<= isSnapshot(getPublishToRepo),
       publishMavenStyle := true,
       publishArtifact in Test := false,
-      publishArtifact in (Compile, packageSrc) := false,
+      publishArtifact in (Compile, packageDoc) := true,
+      publishArtifact in (Compile, packageSrc) := true,
       pomExtra :=
         <url>http://github.com/daniel-trinh/sbt-scalariform</url>
         <licenses>
