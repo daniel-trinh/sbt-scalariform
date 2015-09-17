@@ -77,7 +77,7 @@ Advanced configuration
 ----------------------
 sbt-scalariform comes with various configuration options. Changing the formatting preferences and deactivating the automatic formatting on compile are probably the most important ones and described in detail.
 
-You can provide your own formatting preferences for Scalariform via the setting key `ScalariformKeys.preferences` which expects an instance of `IFormattingPreferences`. Make sure you import all necessary members from the package `scalariform.formatter.preferences`. Let's look at an example:
+You can provide your own formatting preferences for Scalariform via the setting key `scalariformPreferences`. Make sure you import all necessary members from the package `scalariform.formatter.preferences`. Let's look at an example:
 
 .sbt build example
 ```
@@ -87,6 +87,7 @@ import com.typesafe.sbt.SbtScalariform
 SbtScalariform.scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
+#scalariformPreferences := scalariformPreferences.value
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(DoubleIndentClassDeclaration, true)
   .setPreference(PreserveDanglingCloseParenthesis, true)
