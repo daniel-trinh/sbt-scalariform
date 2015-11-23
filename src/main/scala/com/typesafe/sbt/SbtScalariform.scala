@@ -84,7 +84,7 @@ object SbtScalariform extends AutoPlugin {
 
   def configScalariformSettings: Seq[Setting[_]] =
     List(
-      (sourceDirectories in scalariformFormat) := List(scalaSource.value),
+      (sourceDirectories in scalariformFormat) := sourceDirectories,
       scalariformFormat := Scalariform(
         scalariformPreferences.value,
         (sourceDirectories in scalariformFormat).value.toList,
