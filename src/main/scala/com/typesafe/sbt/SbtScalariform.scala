@@ -45,6 +45,7 @@ object SbtScalariform extends AutoPlugin {
         prefixed("preferences"),
         "Scalariform formatting preferences, e.g. indentation"
       )
+
     private def prefixed(key: String) = s"scalariform-$key"
 
     def scalariformSettings: Seq[Setting[_]] =
@@ -56,15 +57,15 @@ object SbtScalariform extends AutoPlugin {
 
   import autoImport._
 
-  override lazy val projectSettings = scalariformSettings
+  //override lazy val projectSettings = defaultScalariformSettings
   override val trigger = allRequirements
   override val requires = JvmPlugin
 
   object ScalariformKeys {
 
-    val format = autoImport.scalariformFormat
+    val format = scalariformFormat
 
-    val preferences = autoImport.scalariformPreferences
+    val preferences = scalariformPreferences
   }
 
   def scalariformSettings: Seq[Setting[_]] = autoImport.scalariformSettings
