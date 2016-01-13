@@ -82,9 +82,7 @@ You can provide your own formatting preferences for Scalariform via the setting 
 .sbt build example
 ```
 import scalariform.formatter.preferences._
-import com.typesafe.sbt.SbtScalariform
-
-SbtScalariform.scalariformSettings
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(AlignSingleLineCaseStatements, true)
@@ -96,6 +94,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 ```
 import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 lazy val project = Project(
     ...
